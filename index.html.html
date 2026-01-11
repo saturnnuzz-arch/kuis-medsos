@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dari Scroll ke Self-Control</title>
+  <style>
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      background: linear-gradient(135deg, #c7d2fe, #fbcfe8);
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    h1 {
+      text-align: center;
+      color: #4f46e5;
+    }
+    .question {
+      margin-bottom: 18px;
+      background: #eef2ff;
+      padding: 15px;
+      border-radius: 12px;
+    }
+    .question p { font-weight: bold; }
+    button {
+      width: 100%;
+      padding: 15px;
+      font-size: 18px;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    button:hover { background: #4338ca; }
+    .result {
+      display: none;
+      text-align: center;
+      margin-top: 30px;
+      padding: 25px;
+      border-radius: 15px;
+      background: #fdf4ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>✨Main Medsos: Wajar atau Kebablasan?✨</h1>
+    <h3 style="text-align:center; font-weight:normal; color:#555; margin-top:-10px;">Refleksi kecil untuk perubahan yang lebih baik</h3>
+<p style="text-align:center">Jawablah dengan jujur yaa 😊 Tidak ada jawaban benar atau salah.</p>
+
+<form id="quizForm">
+<!-- 1–15 Soal -->
+      <script>
+        const questions = [
+          'Berapa jam kamu menggunakan media sosial setiap hari?',
+          'Apakah kamu merasa gelisah jika tidak membuka media sosial?',
+          'Apakah Media sosial membuat kamu sulit fokus belajar?',
+          'Apakah Kamu sering membandingkan diri dengan orang lain di media sosial?',
+          'Saat melihat postingan orang lain, perasaanmu biasanya?',
+          'Apakah media sosial memengaruhi suasana hatimu?',
+          'Kamu sering menunda tugas sekolah karena media sosial?',
+          'Kamu lebih nyaman berkomunikasi lewat chat daripada langsung?',
+          'Media sosial membuatmu sulit tidur?',
+          'Kamu sering mengecek notifikasi meski tidak ada pesan penting?',
+          'Kamu merasa harus selalu update di media sosial?',
+          'Tanpa media sosial, kamu merasa kesepian?',
+          'Media sosial membuatmu kurang percaya diri?',
+          'Kamu merasa waktu belajarmu berkurang karena media sosial?',
+          'Kamu lebih sering main HP daripada berinteraksi dengan keluarga?',
+          'Kamu merasa emosi lebih mudah berubah setelah main media sosial?',
+          'Kamu sulit berhenti scrolling meski sudah lama?',
+          'Media sosial membuatmu sering overthinking?',
+          'Kamu merasa produktivitasmu menurun karena media sosial?'
+        ];
+      </script>
+    </form>
+
+    <div class="result" id="result">
+      <h2>📊 Hasil Kuis Kamu</h2>
+      <p id="scoreText"></p>
+      <p id="categoryText"></p>
+      <p id="motivationText"></p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('quizForm');
+
+    questions.forEach((q, i) => {
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `
+        <p>${i+1}. ${q}</p>
+        <label><input type="radio" name="q${i}" value="1" required> Tidak / Jarang</label><br>
+        <label><input type="radio" name="q${i}" value="2"> Kadang-kadang</label><br>
+        <label><input type="radio" name="q${i}" value="3"> Sering</label>
+      `;
+      form.appendChild(div);
+    });
+
+    const btn = document.createElement('button');
+    btn.type = 'submit';
+    btn.innerText = '🌟 Lihat Hasil 🌟';
+    form.appendChild(btn);
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      let score = 0;
+      const data = new FormData(form);
+      for (let v of data.values()) score += parseInt(v);
+
+      let category = '', motivation = '';
+      if (score <= 25) {
+        category = '🌱 Pengguna Media Sosial Normal';
+        motivation = 'Kamu sudah cukup bijak menggunakan media sosial. Pertahankan ya! ✨';
+      } else if (score <= 35) {
+        category = '⚖️ Pengguna Media Sosial Cukup Intens';
+        motivation = 'Yuk mulai atur waktu agar tetap sehat secara emosi dan fokus belajar 📚';
+      } else {
+        category = '🚨 Pengguna Media Sosial Berlebihan';
+        motivation = 'Ini tanda kamu perlu lebih peduli dengan kesehatan mentalmu. Yuk kurangi perlahan 💖';
+      }
+
+      document.getElementById('scoreText').innerText = 'Skor kamu: ' + score;
+      document.getElementById('categoryText').innerText = category;
+      document.getElementById('motivationText').innerText = motivation;
+      document.getElementById('result').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
